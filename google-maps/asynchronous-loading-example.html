@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link href="../assets/styles.min.css" rel="stylesheet">
+	<title>Google Maps: Asynchronous Loading Example</title>
+	<style>
+		#map-div { float: left; width: 66%; height: 300px; }
+		#content { float: right; width: 33%; }
+		#cleared { clear: both; }
+	</style>
+</head>
+<body>
+	<div id="map-div"></div>
+	<script>
+		/*
+		 * Google Maps: Asynchronous Loading Example
+		 * http://salman-w.blogspot.com/2014/05/google-maps-asynchronous-loading.html
+		 */
+		function loadmap() {
+			var map = new google.maps.Map(document.getElementById("map-div"), {
+				center: new google.maps.LatLng(33.810890, -117.918772),
+				zoom: 16,
+				mapTypeId: google.maps.MapTypeId.ROADMAP
+			});
+		}
+	</script>
+	<script src="//maps.googleapis.com/maps/api/js?v=3&amp;sensor=false&amp;key=AIzaSyBs1MVxS8kIxL9BXrxYE0lfvDP-iF_cmeA&amp;callback=loadmap" defer></script>
+	<div id="content">
+		<p>The objective is to show the content as quickly as possible without blocking the page.</p>
+		<p>The elements appear in the following order:</p>
+		<ul>
+			<li>Map Div</li>
+			<li>Map Initialization JavaScript &mdash; wrapped inside a named function</li>
+			<li>Maps API JavaScript &mdash; must be placed after the abovementioned elements; the <code>async</code> and/or <code>defer</code> attributes prevent blocking behavior</li>
+		</ul>
+	</div>
+	<div id="cleared"></div>
+</body>
+</html>

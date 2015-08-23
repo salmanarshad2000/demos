@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link href="../assets/styles.min.css" rel="stylesheet">
+	<title>YouTube: Control Embedded Player With JavaScript API</title>
+	<script src="//ajax.googleapis.com/ajax/libs/swfobject/2.2/swfobject.js"></script>
+</head>
+<body>
+	<div id="ytplayer-temp">You need Flash player 10.1 (or higher) and JavaScript enabled to view this video.</div>
+	<script>
+		/*
+		 * YouTube: Control Embedded Player With JavaScript API
+		 * http://salman-w.blogspot.com/2009/05/embed-multiple-youtube-videos-in-your.html
+		 */
+		swfobject.embedSWF(
+			"//www.youtube.com/v/gzDS-Kfd5XQ?enablejsapi=1&rel=0&fs=1",
+			"ytplayer-temp",
+			"480",
+			"360",
+			"10.1",
+			false,
+			false,
+			{ allowScriptAccess: "always", allowFullScreen: "true" },
+			{ id: "ytplayer" }
+		);
+		function ytplayer_loadvideo(id) {
+			var o = document.getElementById("ytplayer");
+			if (o) {
+				o.loadVideoById(id);
+			}
+		}
+	</script>
+	<p>
+		<a href="#ytplayer" onclick="ytplayer_loadvideo('gzDS-Kfd5XQ');"><img src="//img.youtube.com/vi/gzDS-Kfd5XQ/default.jpg" alt="Video Thumbnail" width="120" height="90"></a>
+		<a href="#ytplayer" onclick="ytplayer_loadvideo('OPRgPrZCLms');"><img src="//img.youtube.com/vi/OPRgPrZCLms/default.jpg" alt="Video Thumbnail" width="120" height="90"></a>
+		<a href="#ytplayer" onclick="ytplayer_loadvideo('fZ9WiuJPnNA');"><img src="//img.youtube.com/vi/fZ9WiuJPnNA/default.jpg" alt="Video Thumbnail" width="120" height="90"></a>
+		<a href="#ytplayer" onclick="ytplayer_loadvideo('H75eQX006jA');"><img src="//img.youtube.com/vi/H75eQX006jA/default.jpg" alt="Video Thumbnail" width="120" height="90"></a>
+	</p>
+</body>
+</html>

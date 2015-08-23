@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link href="../assets/styles.min.css" rel="stylesheet">
+	<title>CSS: Proportionally Scaled and/or Cropped Images</title>
+	<style>
+		.image {
+			display: inline-block;
+			margin: 4px;
+			border: 1px solid #CCCCCC;
+			background-position: center center;
+			background-repeat: no-repeat;
+		}
+		.image.size-fixed {
+			width: 200px;
+			height: 200px;
+		}
+		.image.size-fluid {
+			padding-top: 15%;
+			width: 20%;
+		}
+		.image.scale-fit {
+			background-size: contain;
+		}
+		.image.scale-fill {
+			background-size: cover;
+		}
+		.image img {
+			display: none;
+		}
+	</style>
+</head>
+<body>
+	<p>Fixed Size Container, Scaled to Fit Images</p>
+	<div class="image size-fixed scale-fit" style="background-image: url(image-1.jpg);"><img src="image-1.jpg" alt="Orientation: Square" width="400" height="400"></div>
+	<div class="image size-fixed scale-fit" style="background-image: url(image-2.jpg);"><img src="image-2.jpg" alt="Orientation: Landscape" width="400" height="300"></div>
+	<div class="image size-fixed scale-fit" style="background-image: url(image-3.jpg);"><img src="image-3.jpg" alt="Orientation: Portrait" width="300" height="400"></div>
+	<p>Fixed Size Container, Cropped to Fit Images</p>
+	<div class="image size-fixed scale-fill" style="background-image: url(image-1.jpg);"><img src="image-1.jpg" alt="Orientation: Square" width="400" height="400"></div>
+	<div class="image size-fixed scale-fill" style="background-image: url(image-2.jpg);"><img src="image-2.jpg" alt="Orientation: Landscape" width="400" height="300"></div>
+	<div class="image size-fixed scale-fill" style="background-image: url(image-3.jpg);"><img src="image-3.jpg" alt="Orientation: Portrait" width="300" height="400"></div>
+	<p>Fluid Size Container, Scaled to Fit Images</p>
+	<div class="image size-fluid scale-fit" style="background-image: url(image-1.jpg);"><img src="image-1.jpg" alt="Orientation: Square" width="400" height="400"></div>
+	<div class="image size-fluid scale-fit" style="background-image: url(image-2.jpg);"><img src="image-2.jpg" alt="Orientation: Landscape" width="400" height="300"></div>
+	<div class="image size-fluid scale-fit" style="background-image: url(image-3.jpg);"><img src="image-3.jpg" alt="Orientation: Portrait" width="300" height="400"></div>
+	<p>Fluid Size Container, Cropped to Fit Images</p>
+	<div class="image size-fluid scale-fill" style="background-image: url(image-1.jpg);"><img src="image-1.jpg" alt="Orientation: Square" width="400" height="400"></div>
+	<div class="image size-fluid scale-fill" style="background-image: url(image-2.jpg);"><img src="image-2.jpg" alt="Orientation: Landscape" width="400" height="300"></div>
+	<div class="image size-fluid scale-fill" style="background-image: url(image-3.jpg);"><img src="image-3.jpg" alt="Orientation: Portrait" width="300" height="400"></div>
+</body>
+</html>

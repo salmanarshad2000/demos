@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link href="../assets/styles.min.css" rel="stylesheet">
+	<title>Google Maps: Zoom-to-Fit Markers (v2)</title>
+	<script src="//maps.google.com/maps?file=api&amp;v=2&amp;sensor=false&amp;key=AIzaSyBs1MVxS8kIxL9BXrxYE0lfvDP-iF_cmeA"></script>
+</head>
+<body>
+	<div id="mapdiv" style="height: 400px;"></div>
+	<script>
+		/*
+		 * Google Maps: Zoom-to-Fit Markers (v2)
+		 * http://salman-w.blogspot.com/2009/03/zoom-to-fit-all-markers-polylines-or.html
+		 */
+		var map;
+		function map_initialize() {
+			var latlng = [
+				new google.maps.LatLng(46 + Math.random(), -120 + Math.random() * 2),
+				new google.maps.LatLng(46 + Math.random(), -120 + Math.random() * 2),
+				new google.maps.LatLng(46 + Math.random(), -120 - Math.random() * 2),
+				new google.maps.LatLng(46 + Math.random(), -120 - Math.random() * 2),
+				new google.maps.LatLng(46 - Math.random(), -120 + Math.random() * 2),
+				new google.maps.LatLng(46 - Math.random(), -120 + Math.random() * 2),
+				new google.maps.LatLng(46 - Math.random(), -120 - Math.random() * 2),
+				new google.maps.LatLng(46 - Math.random(), -120 - Math.random() * 2)
+			];
+			if (google.maps.BrowserIsCompatible()) {
+				map = new google.maps.Map2(document.getElementById('mapdiv'));
+				map.addControl(new google.maps.LargeMapControl3D());
+				map.addControl(new google.maps.MenuMapTypeControl());
+				map.setCenter(new google.maps.LatLng(0, 0), 0);
+				for (var i = 0; i < latlng.length; i++) {
+					var marker = new google.maps.Marker(latlng[i]);
+					map.addOverlay(marker);
+				}
+				var latlngbounds = new google.maps.LatLngBounds();
+				for (var i = 0; i < latlng.length; i++) {
+					latlngbounds.extend(latlng[i]);
+				}
+				map.setCenter(latlngbounds.getCenter(), map.getBoundsZoomLevel(latlngbounds));
+			}
+		}
+		google.maps.Event.addDomListener(window, 'load', map_initialize);
+		google.maps.Event.addDomListener(window, 'unload', google.maps.Unload);
+	</script>
+</body>
+</html>

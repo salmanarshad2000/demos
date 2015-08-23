@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link href="../assets/styles.min.css" rel="stylesheet">
+	<title>CSS: nth-child Arguments Test</title>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<style>
+		#expr { position: relative; top: 1px; margin: 0 2px; border: 1px solid #CCCCCC; padding: 0 2px; width: 60px; font-family: inherit; font-size: inherit; }
+		#expr.error { background-color: #FFF0F0; }
+		#expr-notes { }
+		#expr-chart { float: left; width: 25%; }
+		#expr-chart tr :first-child { width: 25%; }
+		#expr-chart th { background-color: #CCCCCC; }
+		#expr-chart td { background-color: #F0F0F0; }
+		#demo-list { margin: 0 0 0 25%; }
+	</style>
+	<style id="demo-stylesheet">
+		#demo-list :nth-child(3n + 1) { background-color: #FFCC33; }
+	</style>
+</head>
+<body>
+	<p>:nth-child(<input id="expr" type="text" value="3n + 1" maxlength="10">) selects <span id="expr-notes">1st, 4th, 7th child and so on</span>.</p>
+	<table id="expr-chart">
+		<tr>
+			<th>n</th>
+			<th>3n + 1</th>
+		</tr>
+		<tr>
+			<td>0</td>
+			<td>1</td>
+		</tr>
+		<tr>
+			<td>1</td>
+			<td>4</td>
+		</tr>
+		<tr>
+			<td>2</td>
+			<td>7</td>
+		</tr>
+		<tr>
+			<td>3</td>
+			<td>10</td>
+		</tr>
+		<tr>
+			<td>4</td>
+			<td>13</td>
+		</tr>
+		<tr>
+			<td>5</td>
+			<td>16</td>
+		</tr>
+		<tr>
+			<td>6</td>
+			<td>19</td>
+		</tr>
+		<tr>
+			<td>7</td>
+			<td>22</td>
+		</tr>
+		<tr>
+			<td>8</td>
+			<td>25</td>
+		</tr>
+		<tr>
+			<td>9</td>
+			<td>28</td>
+		</tr>
+		<tr>
+			<td>10</td>
+			<td>31</td>
+		</tr>
+	</table>
+	<ol id="demo-list">
+		<li>Item</li>
+		<li>Item</li>
+		<li>Item</li>
+		<li>Item</li>
+		<li>Item</li>
+		<li>Item</li>
+		<li>Item</li>
+		<li>Item</li>
+		<li>Item</li>
+		<li>Item</li>
+		<li>Item</li>
+		<li>Item</li>
+		<li>Item</li>
+		<li>Item</li>
+		<li>Item</li>
+		<li>Item</li>
+		<li>Item</li>
+		<li>Item</li>
+		<li>Item</li>
+		<li>Item</li>
+		<li>Item</li>
+		<li>Item</li>
+		<li>Item</li>
+		<li>Item</li>
+		<li>Item</li>
+		<li>Item</li>
+		<li>Item</li>
+		<li>Item</li>
+		<li>Item</li>
+		<li>Item</li>
+	</ol>
+	<script>
+		/*
+		 * CSS: nth-child Arguments Test
+		 * http://salman-w.blogspot.com/2014/03/css-nth-child-selector-pwned.html
+		 */
+		$(function() {
+			function ordinalSuffixOf(i) {
+				/*
+				 * http://stackoverflow.com/a/13627586/87015
+				 */
+				var j = i % 10;
+				if (j === 1 && i !== 11) {
+					return i + "st";
+				}
+				if (j === 2 && i !== 12) {
+					return i + "nd";
+				}
+				if (j === 3 && i !== 13) {
+					return i + "rd";
+				}
+				return i + "th";
+			}
+			function updateUI() {
+				var $expr = $("#expr"),
+					$notes = $("#expr-notes"),
+					$label = $("#expr-chart th:nth-child(2)"),
+					$cells = $("#expr-chart td:nth-child(2)"),
+					$stylesheet = $("#demo-stylesheet"),
+					expr1 = $expr.val(),
+					regex = /^\s*(?:([\-+]?\d*)n(\s*[\-+]\s*\d+)?|([\-+]?\d+))\s*$/,
+					match = expr1.match(regex),
+					a,
+					b;
+				if (match === null) {
+					$expr.addClass("error");
+					$notes.text("");
+					$label.text("");
+					$cells.text("");
+					$stylesheet.text("");
+					return;
+				}
+				a = match[1] === undefined ? 0 : +(match[1] === "" || match[1] === "-" || match[1] === "+" ? match[1].concat("1") : match[1]);
+				b = match[2] === undefined && match[3] === undefined ? 0 : +(match[2] || match[3]).replace(/\s/g, "");
+				$notes.text(function() {
+					var n = 0,
+						result,
+						results = [];
+					do {
+						result = a * n + b;
+						if (result > 0) {
+							results.push(ordinalSuffixOf(result));
+						} else if (a <= 0) {
+							break;
+						}
+						n++;
+					} while (results.length < 3 && (a > 0 || result > 0));
+					return results.length === 0 ? "nothing" : results.join(", ").concat(results.length === 1 ? " child" : " child and so on");
+				});
+				$label.text(expr1);
+				$cells.text(function(n) {
+					return a * n + b;
+				});
+				$stylesheet.text("#demo-list :nth-child(" + expr1 + ") { background-color: #FFCC33; }");
+			}
+			$("#expr").on("focus keydown blur", function() {
+				this.className = "";
+				if (this.timeout) {
+					window.clearTimeout(this.timeout);
+				}
+				this.timeout = window.setTimeout(updateUI, 1000);
+			});
+		});
+	</script>
+</body>
+</html>

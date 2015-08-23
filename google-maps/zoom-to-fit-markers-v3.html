@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link href="../assets/styles.min.css" rel="stylesheet">
+	<title>Google Maps: Zoom-to-Fit Markers (v3)</title>
+	<script src="//maps.googleapis.com/maps/api/js?v=3&amp;sensor=false&amp;key=AIzaSyBs1MVxS8kIxL9BXrxYE0lfvDP-iF_cmeA"></script>
+</head>
+<body>
+	<div id="mapdiv" style="height: 400px;"></div>
+	<script>
+		/*
+		 * Google Maps: Zoom-to-Fit Markers (v3)
+		 * http://salman-w.blogspot.com/2011/03/zoom-to-fit-all-markers-on-google-map.html
+		 */
+		function map_initialize() {
+			var cwc2011_venue_data = [
+				{
+					name: "Eden Gardens, India",
+					latlng: new google.maps.LatLng(22.564444, 88.343333)
+				},
+				{
+					name: "Feroz Shah Kotla, India",
+					latlng: new google.maps.LatLng(28.637778, 77.243056)
+				},
+				{
+					name: "M. A. Chidambaram Stadium, India",
+					latlng: new google.maps.LatLng(13.062778, 80.279444)
+				},
+				{
+					name: "M. Chinnaswamy Stadium, India",
+					latlng: new google.maps.LatLng(12.978806, 77.599556)
+				},
+				{
+					name: "Mahinda Rajapaksa International Stadium, Sri Lanka",
+					latlng: new google.maps.LatLng(6.804265, 79.987488)
+				},
+				{
+					name: "Narayanganj Osmani Stadium, Bangladesh",
+					latlng: new google.maps.LatLng(23.650161, 90.488811)
+				},
+				{
+					name: "Pallekele International Cricket Stadium, Sri Lanka",
+					latlng: new google.maps.LatLng(7.280278, 80.722222)
+				},
+				{
+					name: "Punjab Cricket Association Stadium, India",
+					latlng: new google.maps.LatLng(30.690858, 76.737258)
+				},
+				{
+					name: "R. Premadasa Stadium, Sri Lanka",
+					latlng: new google.maps.LatLng(6.939667, 79.872028)
+				},
+				{
+					name: "Sardar Patel Stadium, India",
+					latlng: new google.maps.LatLng(23.091667, 72.5975)
+				},
+				{
+					name: "Sher-e-Bangla Cricket Stadium, Bangladesh",
+					latlng: new google.maps.LatLng(23.806917, 90.363583)
+				},
+				{
+					name: "Sinhalese Sports Club Ground, Sri Lanka",
+					latlng: new google.maps.LatLng(6.905922, 79.869403)
+				},
+				{
+					name: "Vidarbha Cricket Association Stadium, India",
+					latlng: new google.maps.LatLng(21.013572, 79.039603)
+				},
+				{
+					name: "Wankhede Stadium, India",
+					latlng: new google.maps.LatLng(18.938917, 72.825722)
+				},
+				{
+					name: "Zohur Ahmed Chowdhury Stadium, Bangladesh",
+					latlng: new google.maps.LatLng(22.355803, 91.767919)
+				}
+			];
+			var map = new google.maps.Map(document.getElementById("mapdiv"), {
+				center: new google.maps.LatLng(0, 0),
+				zoom: 0,
+				mapTypeId: google.maps.MapTypeId.ROADMAP
+			});
+			for (var i = 0; i < cwc2011_venue_data.length; i++) {
+				new google.maps.Marker({
+					position: cwc2011_venue_data[i].latlng,
+					map: map,
+					title: cwc2011_venue_data[i].name
+				});
+			}
+			var latlngbounds = new google.maps.LatLngBounds();
+			for (var i = 0; i < cwc2011_venue_data.length; i++) {
+				latlngbounds.extend(cwc2011_venue_data[i].latlng);
+			}
+			map.fitBounds(latlngbounds);
+			new google.maps.Rectangle({
+				bounds: latlngbounds,
+				map: map,
+				fillColor: "#000000",
+				fillOpacity: 0.2,
+				strokeWeight: 0
+			});
+		}
+		google.maps.event.addDomListener(window, 'load', map_initialize);
+	</script>
+</body>
+</html>

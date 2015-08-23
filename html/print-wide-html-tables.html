@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link href="../assets/styles.min.css" rel="stylesheet">
+	<title>HTML: Print Wide HTML Tables</title>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<style>
+		.style1 {
+			border-collapse: collapse;
+		}
+		.style1 th {
+			background-color: #DDDDDD;
+			white-space: nowrap;
+		}
+		.style1 .d {
+			white-space: nowrap;
+		}
+		.style1 .n {
+			padding-left: 20px;
+			text-align: right;
+		}
+	</style>
+</head>
+<body>
+	<table id="table1" class="style1" border="1" cellpadding="4" cellspacing="0">
+		<tr>
+			<th colspan="2" rowspan="2">Example Report</th>
+			<th colspan="12">2011</th>
+			<th colspan="12">2012</th>
+			<th rowspan="2">Total</th>
+		</tr>
+		<tr>
+			<th>Jan</th>
+			<th>Feb</th>
+			<th>Mar</th>
+			<th>Apr</th>
+			<th>May</th>
+			<th>Jun</th>
+			<th>Jul</th>
+			<th>Aug</th>
+			<th>Sep</th>
+			<th>Oct</th>
+			<th>Nov</th>
+			<th>Dec</th>
+			<th>Jan</th>
+			<th>Feb</th>
+			<th>Mar</th>
+			<th>Apr</th>
+			<th>May</th>
+			<th>Jun</th>
+			<th>Jul</th>
+			<th>Aug</th>
+			<th>Sep</th>
+			<th>Oct</th>
+			<th>Nov</th>
+			<th>Dec</th>
+		</tr>
+		<tr>
+			<th rowspan="2">Batch no 1</th>
+			<td class="d">Integer faucibus ornare</td>
+			<td class="n">609.68</td>
+			<td class="n">380.43</td>
+			<td class="n">441.03</td>
+			<td class="n">726.00</td>
+			<td class="n">434.52</td>
+			<td class="n">461.67</td>
+			<td class="n">989.78</td>
+			<td class="n">939.43</td>
+			<td class="n">480.03</td>
+			<td class="n">346.53</td>
+			<td class="n">276.50</td>
+			<td class="n">507.50</td>
+			<td class="n">422.00</td>
+			<td class="n">998.40</td>
+			<td class="n">463.85</td>
+			<td class="n">600.59</td>
+			<td class="n">230.00</td>
+			<td class="n">321.78</td>
+			<td class="n">675.69</td>
+			<td class="n">491.66</td>
+			<td class="n">852.07</td>
+			<td class="n">423.11</td>
+			<td class="n">518.33</td>
+			<td class="n">218.66</td>
+			<td class="n">12809.24</td>
+		</tr>
+		<tr>
+			<td class="d">Etiam consequat eros</td>
+			<td class="n">519.11</td>
+			<td class="n">605.70</td>
+			<td class="n">69.65</td>
+			<td class="n">93.64</td>
+			<td class="n">115.81</td>
+			<td class="n">90.07</td>
+			<td class="n">883.95</td>
+			<td class="n">774.11</td>
+			<td class="n">579.04</td>
+			<td class="n">965.79</td>
+			<td class="n">382.25</td>
+			<td class="n">511.21</td>
+			<td class="n">484.46</td>
+			<td class="n">61.94</td>
+			<td class="n">253.79</td>
+			<td class="n">329.15</td>
+			<td class="n">493.61</td>
+			<td class="n">305.50</td>
+			<td class="n">244.15</td>
+			<td class="n">360.68</td>
+			<td class="n">541.03</td>
+			<td class="n">21.43</td>
+			<td class="n">410.42</td>
+			<td class="n">211.45</td>
+			<td class="n">9307.94</td>
+		</tr>
+		<tr>
+			<th rowspan="4">Batch no 2</th>
+			<td class="d">Donec interdum eleifend</td>
+			<td class="n">96.86</td>
+			<td class="n">535.54</td>
+			<td class="n">919.82</td>
+			<td class="n">970.90</td>
+			<td class="n">604.38</td>
+			<td class="n">286.48</td>
+			<td class="n">790.78</td>
+			<td class="n">748.68</td>
+			<td class="n">934.03</td>
+			<td class="n">918.28</td>
+			<td class="n">84.29</td>
+			<td class="n">921.38</td>
+			<td class="n">866.84</td>
+			<td class="n">862.65</td>
+			<td class="n">543.52</td>
+			<td class="n">679.40</td>
+			<td class="n">725.95</td>
+			<td class="n">316.00</td>
+			<td class="n">557.95</td>
+			<td class="n">364.08</td>
+			<td class="n">736.52</td>
+			<td class="n">662.15</td>
+			<td class="n">11.75</td>
+			<td class="n">321.34</td>
+			<td class="n">14459.57</td>
+		</tr>
+		<tr>
+			<td class="d">Nam nec diam diam</td>
+			<td class="n">137.36</td>
+			<td class="n">446.88</td>
+			<td class="n">866.02</td>
+			<td class="n">464.73</td>
+			<td class="n">83.97</td>
+			<td class="n">939.58</td>
+			<td class="n">200.66</td>
+			<td class="n">586.54</td>
+			<td class="n">987.22</td>
+			<td class="n">201.55</td>
+			<td class="n">4.87</td>
+			<td class="n">955.41</td>
+			<td class="n">318.97</td>
+			<td class="n">504.67</td>
+			<td class="n">293.74</td>
+			<td class="n">40.79</td>
+			<td class="n">471.91</td>
+			<td class="n">389.00</td>
+			<td class="n">938.10</td>
+			<td class="n">124.51</td>
+			<td class="n">45.97</td>
+			<td class="n">643.09</td>
+			<td class="n">777.36</td>
+			<td class="n">64.89</td>
+			<td class="n">10487.79</td>
+		</tr>
+		<tr>
+			<td class="d">Ut nec odio enim Duis consequat dignissim</td>
+			<td class="n">417.73</td>
+			<td class="n">811.54</td>
+			<td class="n">706.90</td>
+			<td class="n">520.09</td>
+			<td class="n">501.98</td>
+			<td class="n">346.55</td>
+			<td class="n">631.13</td>
+			<td class="n">820.88</td>
+			<td class="n">894.54</td>
+			<td class="n">969.61</td>
+			<td class="n">454.95</td>
+			<td class="n">14.14</td>
+			<td class="n">551.02</td>
+			<td class="n">415.03</td>
+			<td class="n">215.35</td>
+			<td class="n">156.78</td>
+			<td class="n">208.40</td>
+			<td class="n">453.14</td>
+			<td class="n">552.15</td>
+			<td class="n">100.68</td>
+			<td class="n">694.32</td>
+			<td class="n">571.04</td>
+			<td class="n">560.98</td>
+			<td class="n">199.94</td>
+			<td class="n">11768.87</td>
+		</tr>
+		<tr>
+			<td class="d">Suspendisse vitae</td>
+			<td class="n">260.45</td>
+			<td class="n">862.69</td>
+			<td class="n">489.72</td>
+			<td class="n">214.76</td>
+			<td class="n">606.42</td>
+			<td class="n">950.09</td>
+			<td class="n">758.95</td>
+			<td class="n">610.12</td>
+			<td class="n">646.93</td>
+			<td class="n">780.00</td>
+			<td class="n">860.13</td>
+			<td class="n">140.73</td>
+			<td class="n">856.37</td>
+			<td class="n">953.58</td>
+			<td class="n">261.06</td>
+			<td class="n">297.89</td>
+			<td class="n">673.51</td>
+			<td class="n">310.30</td>
+			<td class="n">54.11</td>
+			<td class="n">889.76</td>
+			<td class="n">926.29</td>
+			<td class="n">942.43</td>
+			<td class="n">599.71</td>
+			<td class="n">679.59</td>
+			<td class="n">14625.59</td>
+		</tr>
+		<tr>
+			<th rowspan="4">Batch no 3</th>
+			<td class="d">Fusce eget augue nunc</td>
+			<td class="n">982.60</td>
+			<td class="n">187.98</td>
+			<td class="n">686.78</td>
+			<td class="n">647.25</td>
+			<td class="n">632.55</td>
+			<td class="n">974.80</td>
+			<td class="n">763.77</td>
+			<td class="n">701.24</td>
+			<td class="n">366.07</td>
+			<td class="n">441.79</td>
+			<td class="n">569.41</td>
+			<td class="n">377.63</td>
+			<td class="n">474.69</td>
+			<td class="n">716.85</td>
+			<td class="n">661.66</td>
+			<td class="n">850.69</td>
+			<td class="n">958.14</td>
+			<td class="n">348.99</td>
+			<td class="n">882.23</td>
+			<td class="n">199.83</td>
+			<td class="n">886.70</td>
+			<td class="n">411.30</td>
+			<td class="n">509.21</td>
+			<td class="n">548.44</td>
+			<td class="n">14780.60</td>
+		</tr>
+		<tr>
+			<td class="d">Nunc tincidunt neque id</td>
+			<td class="n">377.92</td>
+			<td class="n">372.76</td>
+			<td class="n">894.76</td>
+			<td class="n">748.22</td>
+			<td class="n">831.55</td>
+			<td class="n">128.01</td>
+			<td class="n">588.13</td>
+			<td class="n">476.67</td>
+			<td class="n">883.21</td>
+			<td class="n">637.82</td>
+			<td class="n">746.85</td>
+			<td class="n">83.95</td>
+			<td class="n">809.13</td>
+			<td class="n">396.19</td>
+			<td class="n">173.17</td>
+			<td class="n">227.65</td>
+			<td class="n">751.65</td>
+			<td class="n">549.10</td>
+			<td class="n">116.20</td>
+			<td class="n">257.37</td>
+			<td class="n">867.89</td>
+			<td class="n">428.41</td>
+			<td class="n">204.93</td>
+			<td class="n">608.51</td>
+			<td class="n">12160.05</td>
+		</tr>
+		<tr>
+			<td class="d">Donec venenatis erat</td>
+			<td class="n">456.60</td>
+			<td class="n">6.11</td>
+			<td class="n">820.38</td>
+			<td class="n">7.05</td>
+			<td class="n">999.83</td>
+			<td class="n">69.62</td>
+			<td class="n">715.53</td>
+			<td class="n">336.65</td>
+			<td class="n">734.01</td>
+			<td class="n">648.53</td>
+			<td class="n">857.83</td>
+			<td class="n">792.53</td>
+			<td class="n">903.03</td>
+			<td class="n">57.45</td>
+			<td class="n">744.82</td>
+			<td class="n">559.77</td>
+			<td class="n">454.56</td>
+			<td class="n">23.09</td>
+			<td class="n">81.06</td>
+			<td class="n">839.93</td>
+			<td class="n">852.78</td>
+			<td class="n">276.42</td>
+			<td class="n">696.91</td>
+			<td class="n">44.18</td>
+			<td class="n">11978.67</td>
+		</tr>
+		<tr>
+			<td class="d">Praesent vulputate</td>
+			<td class="n">935.84</td>
+			<td class="n">597.96</td>
+			<td class="n">100.98</td>
+			<td class="n">586.57</td>
+			<td class="n">819.98</td>
+			<td class="n">710.32</td>
+			<td class="n">978.97</td>
+			<td class="n">880.31</td>
+			<td class="n">104.30</td>
+			<td class="n">891.19</td>
+			<td class="n">637.66</td>
+			<td class="n">169.96</td>
+			<td class="n">20.82</td>
+			<td class="n">84.33</td>
+			<td class="n">228.79</td>
+			<td class="n">150.74</td>
+			<td class="n">728.21</td>
+			<td class="n">16.27</td>
+			<td class="n">150.45</td>
+			<td class="n">789.52</td>
+			<td class="n">498.68</td>
+			<td class="n">794.23</td>
+			<td class="n">961.48</td>
+			<td class="n">744.16</td>
+			<td class="n">12581.72</td>
+		</tr>
+		<tr>
+			<th rowspan="4">Batch no 4</th>
+			<td class="d">Sed et nisl ac urna</td>
+			<td class="n">96.86</td>
+			<td class="n">535.54</td>
+			<td class="n">919.82</td>
+			<td class="n">970.90</td>
+			<td class="n">604.38</td>
+			<td class="n">286.48</td>
+			<td class="n">790.78</td>
+			<td class="n">748.68</td>
+			<td class="n">934.03</td>
+			<td class="n">918.28</td>
+			<td class="n">84.29</td>
+			<td class="n">921.38</td>
+			<td class="n">866.84</td>
+			<td class="n">862.65</td>
+			<td class="n">543.52</td>
+			<td class="n">679.40</td>
+			<td class="n">725.95</td>
+			<td class="n">316.00</td>
+			<td class="n">557.95</td>
+			<td class="n">364.08</td>
+			<td class="n">736.52</td>
+			<td class="n">662.15</td>
+			<td class="n">11.75</td>
+			<td class="n">321.34</td>
+			<td class="n">14459.57</td>
+		</tr>
+		<tr>
+			<td class="d">Sed interdum accumsan</td>
+			<td class="n">137.36</td>
+			<td class="n">446.88</td>
+			<td class="n">866.02</td>
+			<td class="n">464.73</td>
+			<td class="n">83.97</td>
+			<td class="n">939.58</td>
+			<td class="n">200.66</td>
+			<td class="n">586.54</td>
+			<td class="n">987.22</td>
+			<td class="n">201.55</td>
+			<td class="n">4.87</td>
+			<td class="n">955.41</td>
+			<td class="n">318.97</td>
+			<td class="n">504.67</td>
+			<td class="n">293.74</td>
+			<td class="n">40.79</td>
+			<td class="n">471.91</td>
+			<td class="n">389.00</td>
+			<td class="n">938.10</td>
+			<td class="n">124.51</td>
+			<td class="n">45.97</td>
+			<td class="n">643.09</td>
+			<td class="n">777.36</td>
+			<td class="n">64.89</td>
+			<td class="n">10487.79</td>
+		</tr>
+		<tr>
+			<td class="d">Curabitur et sapien</td>
+			<td class="n">417.73</td>
+			<td class="n">811.54</td>
+			<td class="n">706.90</td>
+			<td class="n">520.09</td>
+			<td class="n">501.98</td>
+			<td class="n">346.55</td>
+			<td class="n">631.13</td>
+			<td class="n">820.88</td>
+			<td class="n">894.54</td>
+			<td class="n">969.61</td>
+			<td class="n">454.95</td>
+			<td class="n">14.14</td>
+			<td class="n">551.02</td>
+			<td class="n">415.03</td>
+			<td class="n">215.35</td>
+			<td class="n">156.78</td>
+			<td class="n">208.40</td>
+			<td class="n">453.14</td>
+			<td class="n">552.15</td>
+			<td class="n">100.68</td>
+			<td class="n">694.32</td>
+			<td class="n">571.04</td>
+			<td class="n">560.98</td>
+			<td class="n">199.94</td>
+			<td class="n">11768.87</td>
+		</tr>
+		<tr>
+			<td class="d">Donec sed metus eget</td>
+			<td class="n">260.45</td>
+			<td class="n">862.69</td>
+			<td class="n">489.72</td>
+			<td class="n">214.76</td>
+			<td class="n">606.42</td>
+			<td class="n">950.09</td>
+			<td class="n">758.95</td>
+			<td class="n">610.12</td>
+			<td class="n">646.93</td>
+			<td class="n">780.00</td>
+			<td class="n">860.13</td>
+			<td class="n">140.73</td>
+			<td class="n">856.37</td>
+			<td class="n">953.58</td>
+			<td class="n">261.06</td>
+			<td class="n">297.89</td>
+			<td class="n">673.51</td>
+			<td class="n">310.30</td>
+			<td class="n">54.11</td>
+			<td class="n">889.76</td>
+			<td class="n">926.29</td>
+			<td class="n">942.43</td>
+			<td class="n">599.71</td>
+			<td class="n">679.59</td>
+			<td class="n">14625.59</td>
+		</tr>
+		<tr>
+			<th rowspan="2">Batch no 5</th>
+			<td class="d">Nullam eu turpis diam</td>
+			<td class="n">609.68</td>
+			<td class="n">380.43</td>
+			<td class="n">441.03</td>
+			<td class="n">726.00</td>
+			<td class="n">434.52</td>
+			<td class="n">461.67</td>
+			<td class="n">989.78</td>
+			<td class="n">939.43</td>
+			<td class="n">480.03</td>
+			<td class="n">346.53</td>
+			<td class="n">276.50</td>
+			<td class="n">507.50</td>
+			<td class="n">422.00</td>
+			<td class="n">998.40</td>
+			<td class="n">463.85</td>
+			<td class="n">600.59</td>
+			<td class="n">230.00</td>
+			<td class="n">321.78</td>
+			<td class="n">675.69</td>
+			<td class="n">491.66</td>
+			<td class="n">852.07</td>
+			<td class="n">423.11</td>
+			<td class="n">518.33</td>
+			<td class="n">218.66</td>
+			<td class="n">12809.24</td>
+		</tr>
+		<tr>
+			<td class="d">Quisque interdum</td>
+			<td class="n">519.11</td>
+			<td class="n">605.70</td>
+			<td class="n">69.65</td>
+			<td class="n">93.64</td>
+			<td class="n">115.81</td>
+			<td class="n">90.07</td>
+			<td class="n">883.95</td>
+			<td class="n">774.11</td>
+			<td class="n">579.04</td>
+			<td class="n">965.79</td>
+			<td class="n">382.25</td>
+			<td class="n">511.21</td>
+			<td class="n">484.46</td>
+			<td class="n">61.94</td>
+			<td class="n">253.79</td>
+			<td class="n">329.15</td>
+			<td class="n">493.61</td>
+			<td class="n">305.50</td>
+			<td class="n">244.15</td>
+			<td class="n">360.68</td>
+			<td class="n">541.03</td>
+			<td class="n">21.43</td>
+			<td class="n">410.42</td>
+			<td class="n">211.45</td>
+			<td class="n">9307.94</td>
+		</tr>
+		<tr>
+			<th rowspan="2">Batch no 6</th>
+			<td class="d">Nullam</td>
+			<td class="n">871.49</td>
+			<td class="n">885.64</td>
+			<td class="n">429.39</td>
+			<td class="n">751.64</td>
+			<td class="n">535.68</td>
+			<td class="n">193.56</td>
+			<td class="n">890.52</td>
+			<td class="n">464.02</td>
+			<td class="n">474.04</td>
+			<td class="n">193.85</td>
+			<td class="n">752.76</td>
+			<td class="n">33.25</td>
+			<td class="n">0.33</td>
+			<td class="n">306.93</td>
+			<td class="n">13.06</td>
+			<td class="n">480.02</td>
+			<td class="n">227.66</td>
+			<td class="n">418.95</td>
+			<td class="n">61.76</td>
+			<td class="n">377.59</td>
+			<td class="n">357.30</td>
+			<td class="n">167.30</td>
+			<td class="n">9.09</td>
+			<td class="n">180.06</td>
+			<td class="n">9075.89</td>
+		</tr>
+		<tr>
+			<td class="d">Ut tristique</td>
+			<td class="n">231.09</td>
+			<td class="n">353.31</td>
+			<td class="n">771.67</td>
+			<td class="n">982.83</td>
+			<td class="n">812.45</td>
+			<td class="n">733.33</td>
+			<td class="n">885.61</td>
+			<td class="n">484.72</td>
+			<td class="n">348.70</td>
+			<td class="n">731.37</td>
+			<td class="n">415.39</td>
+			<td class="n">399.78</td>
+			<td class="n">771.93</td>
+			<td class="n">572.25</td>
+			<td class="n">749.17</td>
+			<td class="n">28.68</td>
+			<td class="n">491.58</td>
+			<td class="n">580.50</td>
+			<td class="n">166.17</td>
+			<td class="n">298.89</td>
+			<td class="n">397.96</td>
+			<td class="n">280.60</td>
+			<td class="n">943.67</td>
+			<td class="n">771.20</td>
+			<td class="n">13202.85</td>
+		</tr>
+		<tr>
+			<th rowspan="4">Batch no 7</th>
+			<td class="d">Proin malesuada arcu</td>
+			<td class="n">982.60</td>
+			<td class="n">187.98</td>
+			<td class="n">686.78</td>
+			<td class="n">647.25</td>
+			<td class="n">632.55</td>
+			<td class="n">974.80</td>
+			<td class="n">763.77</td>
+			<td class="n">701.24</td>
+			<td class="n">366.07</td>
+			<td class="n">441.79</td>
+			<td class="n">569.41</td>
+			<td class="n">377.63</td>
+			<td class="n">474.69</td>
+			<td class="n">716.85</td>
+			<td class="n">661.66</td>
+			<td class="n">850.69</td>
+			<td class="n">958.14</td>
+			<td class="n">348.99</td>
+			<td class="n">882.23</td>
+			<td class="n">199.83</td>
+			<td class="n">886.70</td>
+			<td class="n">411.30</td>
+			<td class="n">509.21</td>
+			<td class="n">548.44</td>
+			<td class="n">14780.60</td>
+		</tr>
+		<tr>
+			<td class="d">Donec egestas tincidunt</td>
+			<td class="n">377.92</td>
+			<td class="n">372.76</td>
+			<td class="n">894.76</td>
+			<td class="n">748.22</td>
+			<td class="n">831.55</td>
+			<td class="n">128.01</td>
+			<td class="n">588.13</td>
+			<td class="n">476.67</td>
+			<td class="n">883.21</td>
+			<td class="n">637.82</td>
+			<td class="n">746.85</td>
+			<td class="n">83.95</td>
+			<td class="n">809.13</td>
+			<td class="n">396.19</td>
+			<td class="n">173.17</td>
+			<td class="n">227.65</td>
+			<td class="n">751.65</td>
+			<td class="n">549.10</td>
+			<td class="n">116.20</td>
+			<td class="n">257.37</td>
+			<td class="n">867.89</td>
+			<td class="n">428.41</td>
+			<td class="n">204.93</td>
+			<td class="n">608.51</td>
+			<td class="n">12160.05</td>
+		</tr>
+		<tr>
+			<td class="d">Pellentesque sed magna</td>
+			<td class="n">456.60</td>
+			<td class="n">6.11</td>
+			<td class="n">820.38</td>
+			<td class="n">7.05</td>
+			<td class="n">999.83</td>
+			<td class="n">69.62</td>
+			<td class="n">715.53</td>
+			<td class="n">336.65</td>
+			<td class="n">734.01</td>
+			<td class="n">648.53</td>
+			<td class="n">857.83</td>
+			<td class="n">792.53</td>
+			<td class="n">903.03</td>
+			<td class="n">57.45</td>
+			<td class="n">744.82</td>
+			<td class="n">559.77</td>
+			<td class="n">454.56</td>
+			<td class="n">23.09</td>
+			<td class="n">81.06</td>
+			<td class="n">839.93</td>
+			<td class="n">852.78</td>
+			<td class="n">276.42</td>
+			<td class="n">696.91</td>
+			<td class="n">44.18</td>
+			<td class="n">11978.67</td>
+		</tr>
+		<tr>
+			<td class="d">Nam quis justo sed</td>
+			<td class="n">935.84</td>
+			<td class="n">597.96</td>
+			<td class="n">100.98</td>
+			<td class="n">586.57</td>
+			<td class="n">819.98</td>
+			<td class="n">710.32</td>
+			<td class="n">978.97</td>
+			<td class="n">880.31</td>
+			<td class="n">104.30</td>
+			<td class="n">891.19</td>
+			<td class="n">637.66</td>
+			<td class="n">169.96</td>
+			<td class="n">20.82</td>
+			<td class="n">84.33</td>
+			<td class="n">228.79</td>
+			<td class="n">150.74</td>
+			<td class="n">728.21</td>
+			<td class="n">16.27</td>
+			<td class="n">150.45</td>
+			<td class="n">789.52</td>
+			<td class="n">498.68</td>
+			<td class="n">794.23</td>
+			<td class="n">961.48</td>
+			<td class="n">744.16</td>
+			<td class="n">12581.72</td>
+		</tr>
+		<tr>
+			<th>Total</th>
+			<td class="d">(nunc nec)</td>
+			<td class="n">10690.88</td>
+			<td class="n">10854.13</td>
+			<td class="n">13193.14</td>
+			<td class="n">11692.89</td>
+			<td class="n">12610.11</td>
+			<td class="n">10841.27</td>
+			<td class="n">16379.43</td>
+			<td class="n">14698.00</td>
+			<td class="n">14041.50</td>
+			<td class="n">14527.40</td>
+			<td class="n">10917.63</td>
+			<td class="n">9381.91</td>
+			<td class="n">12186.92</td>
+			<td class="n">10981.36</td>
+			<td class="n">8441.73</td>
+			<td class="n">8295.60</td>
+			<td class="n">12111.12</td>
+			<td class="n">7065.79</td>
+			<td class="n">8732.11</td>
+			<td class="n">9512.52</td>
+			<td class="n">14559.76</td>
+			<td class="n">10795.12</td>
+			<td class="n">11454.92</td>
+			<td class="n">8233.58</td>
+			<td class="n">272198.82</td>
+		</tr>
+	</table>
+	<input type="button" id="print-button" value="Make this table printable">
+	<script>
+		/*
+		 * HTML: Print Wide HTML Tables
+		 * http://salman-w.blogspot.com/2013/04/printing-wide-html-tables.html
+		 */
+		$(function() {
+			$("#print-button").on("click", function() {
+				var table = $("#table1"),
+					tableWidth = table.outerWidth(),
+					pageWidth = 600,
+					pageCount = Math.ceil(tableWidth / pageWidth),
+					printWrap = $("<div></div>").insertAfter(table),
+					i,
+					printPage;
+				for (i = 0; i < pageCount; i++) {
+					printPage = $("<div></div>").css({
+						"overflow": "hidden",
+						"width": pageWidth,
+						"page-break-before": i === 0 ? "auto" : "always"
+					}).appendTo(printWrap);
+					table.clone().removeAttr("id").appendTo(printPage).css({
+						"position": "relative",
+						"left": -i * pageWidth
+					});
+				}
+				table.hide();
+				$(this).prop("disabled", true);
+			});
+		});
+	</script>
+</body>
+</html>

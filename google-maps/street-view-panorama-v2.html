@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link href="../assets/styles.min.css" rel="stylesheet">
+	<title>Google Maps: Street View Panorama (v2)</title>
+	<script src="//maps.google.com/maps?file=api&amp;v=2&amp;sensor=false&amp;key=AIzaSyBs1MVxS8kIxL9BXrxYE0lfvDP-iF_cmeA"></script>
+</head>
+<body>
+	<div id="mapdiv" style="float: left; width: 50%; height: 400px;"></div>
+	<div id="svpdiv" style="float: left; width: 50%; height: 400px;"></div>
+	<div style="clear: both;"></div>
+	<script>
+		/*
+		 * Google Maps: Street View Panorama (v2)
+		 * http://salman-w.blogspot.com/2009/07/adding-street-view-support-to-google.html
+		 */
+		var map;
+		var streetviewclient;
+		var streetviewpanorama;
+		/*
+		 * initialize function
+		 */
+		function map_initialize() {
+			var center = new google.maps.LatLng(33.806878, -117.915126);
+			if (google.maps.BrowserIsCompatible()) {
+				// setup google map and its interface
+				map = new google.maps.Map2(document.getElementById("mapdiv"));
+				map.addControl(new google.maps.SmallMapControl());
+				map.addControl(new google.maps.MenuMapTypeControl());
+				map.setCenter(center, 14);
+				// setup onclick event for google map
+				streetviewclient = new google.maps.StreetviewClient();
+				google.maps.Event.addListener(map, "click", function(overlay, latlng) {
+					if (!overlay) {
+						streetviewclient.getNearestPanorama(latlng, streetviewclient_callback);
+					}
+				});
+				// setup street view panorama
+				streetviewpanorama = new google.maps.StreetviewPanorama(document.getElementById("svpdiv"));
+				streetviewpanorama.setLocationAndPOV(center);
+				google.maps.Event.addListener(streetviewpanorama, "error", streetviewpanorama_error);
+				// load a panorama
+				streetviewclient.getNearestPanorama(center, streetviewclient_callback);
+			}
+		}
+		/*
+		 * callback function -- this function is called indirectly when:
+		 * - user clicks on the google map
+		 * - user clicks on one of the other panoramas
+		 */
+		function streetviewclient_callback(streetviewdata) {
+			// check errors
+			if (streetviewdata.code != google.maps.StreetviewClient.ReturnValues.SUCCESS) {
+				alert("getNearestPanorama( ) failed: " + streetviewdata.code);
+				return;
+			}
+			// display tooltip and other panoramas
+			var info = "";
+			info += "<strong>" + streetviewdata.location.description + "</strong><br>\n";
+			info += "<small>" + streetviewdata.copyright + "</small><br>\n";
+			info += "<strong>Other Panoramas:</strong><br>\n";
+			for (var i = 0; i < streetviewdata.links.length; i++) {
+				info += "&rsaquo; <a href='#' onclick='oncustomclick(&quot;" + streetviewdata.links[i].panoId + "&quot;); return false;'>" + streetviewdata.links[i].description + "</a><br>\n";
+			}
+			map.openInfoWindowHtml(streetviewdata.location.latlng, "<div style='width: 200px; height: 100px; overflow: auto;'>" + info + "</div>");
+			// synchronize street view panorama
+			streetviewpanorama.setLocationAndPOV(streetviewdata.location.latlng);
+		}
+		function oncustomclick(id) {
+			streetviewclient.getPanoramaById(id, streetviewclient_callback);
+		}
+		function streetviewpanorama_error(code) {
+			if (code == google.maps.StreetviewPanorama.ErrorValues.FLASH_UNAVAILABLE) {
+				alert("You need Flash player to view the panorama.");
+				return;
+			}
+		}
+		google.maps.Event.addDomListener(window, "load", map_initialize);
+		google.maps.Event.addDomListener(window, "unload", google.maps.Unload);
+	</script>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link href="../assets/styles.min.css" rel="stylesheet">
+	<title>Google Maps: Set Marker Z-Index (v3)</title>
+	<script src="//maps.googleapis.com/maps/api/js?v=3&amp;sensor=false&amp;key=AIzaSyBs1MVxS8kIxL9BXrxYE0lfvDP-iF_cmeA"></script>
+</head>
+<body>
+	<div id="mapdiv" style="height: 400px;"></div>
+	<script>
+		/*
+		 * Google Maps: Set Marker Z-Index (v3)
+		 * http://salman-w.blogspot.com/2012/07/change-z-index-google-map-v3-markers.html
+		 */
+		google.maps.event.addDomListener(window, 'load', function() {
+			var map = new google.maps.Map(document.getElementById("mapdiv"), {
+				center: new google.maps.LatLng(33.810890, -117.918772),
+				zoom: 8,
+				mapTypeId: google.maps.MapTypeId.ROADMAP
+			});
+			new google.maps.Marker({
+				position: map.getCenter(),
+				map: map,
+				title: "Topmost Marker",
+				icon: "marker-green-v3.png",
+				zIndex: google.maps.Marker.MAX_ZINDEX + 1
+			});
+			for (var i = 0; i < 10; i++) {
+				new google.maps.Marker({
+					position: new google.maps.LatLng(map.getCenter().lat() + Math.random() * 0.4 - 0.2, map.getCenter().lng() + Math.random() * 0.4 - 0.2),
+					map: map,
+					title: "Random Marker #" + (i + 1)
+				});
+			}
+		});
+	</script>
+</body>
+</html>

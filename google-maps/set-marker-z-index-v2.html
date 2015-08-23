@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link href="../assets/styles.min.css" rel="stylesheet">
+	<title>Google Maps: Set Marker Z-Index (v2)</title>
+	<script src="//maps.google.com/maps?file=api&amp;v=2&amp;sensor=false&amp;key=AIzaSyBs1MVxS8kIxL9BXrxYE0lfvDP-iF_cmeA"></script>
+</head>
+<body>
+	<div id="mapdiv" style="height: 400px;"></div>
+	<script>
+		/*
+		 * Google Maps: Set Marker Z-Index (v2)
+		 * http://salman-w.blogspot.com/2010/03/change-z-index-of-google-map-markers.html
+		 */
+		var map;
+		function map_initialize() {
+			if (google.maps.BrowserIsCompatible()) {
+				/*
+				 * initialize map
+				 */
+				map = new google.maps.Map2(document.getElementById('mapdiv'));
+				map.addControl(new google.maps.LargeMapControl3D());
+				map.addControl(new google.maps.MenuMapTypeControl());
+				map.setCenter(new google.maps.LatLng(27.988056, 86.925278), 10);
+				/*
+				 * create topmost marker
+				 */
+				var topmostMarkerLatLng = new google.maps.LatLng(27.988056, 86.925278);
+				var topmostMarkerIcon = new google.maps.Icon(google.maps.DEFAULT_ICON);
+				topmostMarkerIcon.image = 'marker-green-v2.png';
+				var getTopmostZIndex = function(marker) {
+					return google.maps.Overlay.getZIndex(-90) + 1;
+				}
+				var topmostMarker = new google.maps.Marker(topmostMarkerLatLng, {
+					icon: topmostMarkerIcon,
+					zIndexProcess: getTopmostZIndex
+				});
+				google.maps.Event.addListener(topmostMarker, 'click', function() {
+					var html = 'Topmost Marker' + '<br />Latitude: ' + this.getLatLng().lat().toFixed(6) + '<br />Longitude: ' + this.getLatLng().lng().toFixed(6);
+					this.openInfoWindowHtml(html);
+				});
+				map.addOverlay(topmostMarker);
+				/*
+				 * create random marker
+				 */
+				for (var i = 0; i < 100; i++) {
+					var randomMarkerLatLng = new google.maps.LatLng(map.getCenter().lat() + Math.random() - 0.5, map.getCenter().lng() + Math.random() - 0.5);
+					var randomMarker = new google.maps.Marker(randomMarkerLatLng);
+					google.maps.Event.addListener(randomMarker, 'click', function() {
+						var html = 'Random Marker' + '<br />Latitude: ' + this.getLatLng().lat().toFixed(6) + '<br />Longitude: ' + this.getLatLng().lng().toFixed(6);
+						this.openInfoWindowHtml(html);
+					});
+					map.addOverlay(randomMarker);
+				}
+			}
+		}
+		google.maps.Event.addDomListener(window, 'load', map_initialize);
+		google.maps.Event.addDomListener(window, 'unload', google.maps.Unload);
+	</script>
+</body>
+</html>

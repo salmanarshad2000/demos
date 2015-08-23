@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link href="../assets/styles.min.css" rel="stylesheet">
+	<title>jQuery UI Datepicker: Internationalization and Localization</title>
+	<link href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/themes/ui-darkness/jquery-ui.min.css" rel="stylesheet">
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/i18n/jquery-ui-i18n.min.js"></script>
+</head>
+<body>
+	<input id="datepicker-1" type="text">
+	<input id="datepicker-2" type="text">
+	<input id="datepicker-3" type="text">
+	<script>
+		/*
+		 * jQuery UI Datepicker: Internationalization and Localization
+		 * http://salman-w.blogspot.com/2013/01/jquery-ui-datepicker-examples.html
+		 */
+		$(function() {
+			$("#datepicker-1").datepicker($.datepicker.regional["fr"]);
+			$("#datepicker-2").datepicker($.extend({}, $.datepicker.regional["es"], {
+				showWeek: true
+			}));
+			$("#datepicker-3").datepicker($.datepicker.regional["de"]).datepicker("option", {
+				changeMonth: true,
+				changeYear: true
+			});
+		});
+	</script>
+</body>
+</html>

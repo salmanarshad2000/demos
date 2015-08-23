@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link href="../assets/styles.min.css" rel="stylesheet">
+	<title>jQuery Mobile: jQuery UI Datepicker Monkey Patch</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="//ajax.googleapis.com/ajax/libs/jquerymobile/1.4.2/jquery.mobile.min.css" rel="stylesheet">
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<script>
+		$(document).on("mobileinit", function() {
+			$.mobile.ajaxEnabled = false;
+		});
+	</script>
+	<script src="//ajax.googleapis.com/ajax/libs/jquerymobile/1.4.2/jquery.mobile.min.js"></script>
+	<script src="jquery-ui.custom.js"></script>
+	<script>
+		/*
+		 * jQuery Mobile: jQuery UI Datepicker Monkey Patch
+		 * http://salman-w.blogspot.com/2014/03/jquery-ui-datepicker-for-jquery-mobile.html
+		 */
+		(function() {
+			// use a jQuery Mobile icon on trigger button
+			$.datepicker._triggerClass += " ui-btn ui-btn-right ui-icon-carat-d ui-btn-icon-notext ui-corner-all";
+			// replace jQuery UI CSS classes with jQuery Mobile CSS classes in the generated HTML
+			$.datepicker._generateHTML_old = $.datepicker._generateHTML;
+			$.datepicker._generateHTML = function(inst) {
+				return $("<div></div>").html(this._generateHTML_old(inst))
+					.find(".ui-datepicker-header").removeClass("ui-widget-header ui-helper-clearfix").addClass("ui-bar-inherit").end()
+					.find(".ui-datepicker-prev").addClass("ui-btn ui-btn-left ui-icon-carat-l ui-btn-icon-notext").end()
+					.find(".ui-datepicker-next").addClass("ui-btn ui-btn-right ui-icon-carat-r ui-btn-icon-notext").end()
+					.find(".ui-icon.ui-icon-circle-triangle-e, .ui-icon.ui-icon-circle-triangle-w").replaceWith(function() { return this.childNodes; }).end()
+					.find("span.ui-state-default").removeClass("ui-state-default").addClass("ui-btn").end()
+					.find("a.ui-state-default.ui-state-active").removeClass("ui-state-default ui-state-highlight ui-priority-secondary ui-state-active").addClass("ui-btn ui-btn-active").end()
+					.find("a.ui-state-default").removeClass("ui-state-default ui-state-highlight ui-priority-secondary").addClass("ui-btn").end()
+					.find(".ui-datepicker-buttonpane").removeClass("ui-widget-content").end()
+					.find(".ui-datepicker-current").removeClass("ui-state-default ui-priority-secondary").addClass("ui-btn ui-btn-inline ui-mini").end()
+					.find(".ui-datepicker-close").removeClass("ui-state-default ui-priority-primary").addClass("ui-btn ui-btn-inline ui-mini").end()
+					.html();
+			};
+			// replace jQuery UI CSS classes with jQuery Mobile CSS classes on the datepicker div, unbind mouseover and mouseout events on the datepicker div
+			$.datepicker._newInst_old = $.datepicker._newInst;
+			$.datepicker._newInst = function(target, inline) {
+				var inst = this._newInst_old(target, inline);
+				if (inst.dpDiv.hasClass("ui-widget")) {
+					inst.dpDiv.removeClass("ui-widget ui-widget-content ui-helper-clearfix").addClass(inline ? "ui-content" : "ui-content ui-overlay-shadow ui-body-a").unbind("mouseover mouseout");
+				}
+				return inst;
+			};
+		})();
+	</script>
+	<style>
+		.demo-info { margin: 0.8em 0 0; font-size: 1em; }
+		.ui-datepicker { display: none; }
+		/* set height and left/right margin to accomodate prev/next icons */
+		.ui-datepicker-header { position: relative; padding: 0.3125em 2.0625em; line-height: 1.75em; text-align: center; }
+		.ui-datepicker-header .ui-btn { margin: -1px 0 0 0; }
+		/* fixed width layout for calendar; cells are fixed width */
+		.ui-datepicker-calendar { border-collapse: collapse; line-height: 2; }
+		.ui-datepicker-calendar .ui-btn { margin: 0; padding: 0; width: 2em; line-height: inherit; }
+		.ui-datepicker-today .ui-btn { text-decoration: underline !important; }
+		.ui-datepicker-days-cell-over .ui-btn { border-color: inherit !important; }
+		.ui-datepicker-buttonpane .ui-btn { float: left; margin: 0.5em 0 0; padding: 0.5em 1em; }
+		.ui-datepicker-buttonpane .ui-btn:last-child { float: right; }
+		/* class that can be added to datepicker <input> element's wrapper; makes room for trigger button */
+		.dp-input-button-wrap { position: relative; padding-right: 2.5em; }
+		.dp-input-button-wrap .ui-btn { top: 0.1875em; margin: 0; }
+		/* jQM framework wraps popup content inside a div with the ID <div-id>-popup */
+		#dp-fullsize-popup { width: 80%; }
+		/* fluid width layout for calendar; table is 100% wide; cells size automatically */
+		.ui-datepicker-inline .ui-datepicker-calendar { width: 100%; }
+		.ui-datepicker-inline .ui-datepicker-calendar .ui-btn { width: auto; }
+	</style>
+</head>
+<body>
+	<div data-role="page">
+		<div data-role="header">
+			<h1>Choose Dates</h1>
+		</div>
+		<div role="main" class="ui-content">
+			<form action="index.html">
+				<h3 class="demo-info">Default functionality (opens virtual keyboard)</h3>
+				<div class="ui-field-contain">
+					<label for="DP1">Demo 1</label>
+					<input id="DP1" type="text">
+				</div>
+				<h3 class="demo-info">Read-only Input (prevent virtual keyboard)</h3>
+				<div class="ui-field-contain">
+					<label for="DP2">Demo 2</label>
+					<input id="DP2" type="text">
+				</div>
+				<h3 class="demo-info">Show Button Panel</h3>
+				<div class="ui-field-contain">
+					<label for="DP3">Demo 3</label>
+					<input id="DP3" type="text">
+				</div>
+				<h3 class="demo-info">Read-only + Show on Button</h3>
+				<div class="ui-field-contain">
+					<label for="DP4">Demo 4</label>
+					<input id="DP4" type="text" data-wrapper-class="dp-input-button-wrap">
+				</div>
+				<h3 class="demo-info">Datepicker in Full-width Popup</h3>
+				<div class="ui-field-contain">
+					<label for="DP5">Demo 5</label>
+					<input id="DP5" type="text">
+				</div>
+			</form>
+			<div id="dp-fullsize" data-role="popup" data-dismissible="false" data-history="false" data-position-to="window">
+				<a href="#" data-rel="back" data-role="button" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
+			</div>
+			<script>
+				/*
+				 * Datepicker Demos
+				 */
+				$(document).on("pagecreate", function() {
+					$("#DP1").datepicker();
+					$("#DP2").prop("readonly", true).datepicker();
+					$("#DP3").prop("readonly", true).datepicker({
+						showButtonPanel: true
+					});
+					$("#DP4").datepicker({
+						showOn: "button",
+						beforeShow: function() {
+							$(this).prop("readonly", true);
+						},
+						onClose: function() {
+							$(this).prop("readonly", false);
+						}
+					});
+					$("#DP5").on("focus", function() {
+						$("#dp-fullsize").popup("open");
+					});
+					$("#dp-fullsize").datepicker({
+						altField: "#DP5",
+						onSelect: function() {
+							$(this).popup("close");
+						}
+					});
+				});
+			</script>
+		</div>
+		<div data-role="footer">
+			<h4>Don't forget to view page source.</h4>
+		</div>
+	</div>
+</body>
+</html>

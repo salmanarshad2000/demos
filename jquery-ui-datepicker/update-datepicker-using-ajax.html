@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link href="../assets/styles.min.css" rel="stylesheet">
+	<title>jQuery UI Datepicker: Update Datepicker Using AJAX</title>
+	<link href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/themes/ui-darkness/jquery-ui.min.css" rel="stylesheet">
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js"></script>
+	<style>
+		.dp-highlight-unknown .ui-state-default {
+			background: #800;
+			color: #FFF;
+		}
+		.dp-highlight-holiday .ui-state-default {
+			background: #484;
+			color: #FFF;
+		}
+	</style>
+</head>
+<body>
+	<div id="datepicker"></div>
+	<p><input id="dateloader" type="button" value=" Load dates "></p>
+	<script>
+		/*
+		 * jQuery UI Datepicker: Update Datepicker Using AJAX
+		 * http://salman-w.blogspot.com/2013/01/jquery-ui-datepicker-examples.html
+		 */
+		$(function() {
+			var dateList = null;
+			var date1 = new Date;
+			date1.setHours(0, 0, 0, 0);
+			date1.setDate(1);
+			var date2 = new Date;
+			date2.setHours(0, 0, 0, 0);
+			date2.setMonth(date2.getMonth() + 12, 0);
+			var date3 = new Date;
+			date3.setHours(0, 0, 0, 0);
+			date3.setMonth(date3.getMonth() + 12, 1);
+			$("#datepicker").datepicker({
+				minDate: date1,
+				maxDate: date2,
+				beforeShowDay: function(date) {
+					var r = [true, ""];
+					if (dateList === null) {
+						r[1] = "dp-highlight-unknown";
+					} else {
+						var key = $.datepicker.formatDate("d M yy", date);
+						if (key in dateList) {
+							r[1] = "dp-highlight-holiday";
+							r[2] = dateList[key].join(", ");
+						}
+					}
+					return r;
+				}
+			});
+			$("#dateloader").on("click", function() {
+				$(this).prop("disabled", true);
+				$.getJSON("//www.google.com/calendar/feeds/usa__en@holiday.calendar.google.com/public/basic", {
+					"alt": "json",
+					"start-min": $.datepicker.formatDate("yy-mm-dd", date1),
+					"start-max": $.datepicker.formatDate("yy-mm-dd", date3),
+					"orderby": "starttime",
+					"max-results": 100
+				}, function(data) {
+					dateList = {};
+					$.each(data.feed.entry, function(i, entry) {
+						var key = entry.summary.$t.match(/When: ... ([a-zA-Z0-9, ]+)/)[1];
+						if (key in dateList === false) {
+							dateList[key] = [];
+						}
+						dateList[key].push(entry.title.$t);
+					});
+					$("#datepicker").datepicker("refresh");
+				});
+			});
+		});
+	</script>
+</body>
+</html>
