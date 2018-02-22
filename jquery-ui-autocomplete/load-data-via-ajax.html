@@ -3,9 +3,9 @@
 <head>
 	<link href="../assets/styles.min.css" rel="stylesheet">
 	<title>jQuery UI Autocomplete: Load Data via AJAX</title>
-	<link href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/themes/ui-darkness/jquery-ui.min.css" rel="stylesheet">
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-	<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js"></script>
+	<link href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/start/jquery-ui.min.css" rel="stylesheet">
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
 	<style>
 		/* autocomplete adds the ui-autocomplete-loading class to the textbox when it is _busy_ */
 		#autocomplete.ui-autocomplete-loading {
@@ -16,30 +16,31 @@
 	</style>
 </head>
 <body>
-	<form action="http://www.rottentomatoes.com/search/" target="_blank">
-		<input id="autocomplete" type="text" placeholder="Movie name" name="search">
+	<form action="https://www.imdb.com/find" target="_blank">
+		<input id="autocomplete" type="text" placeholder="Movie name" name="q">
 	</form>
 	<script>
 		/*
 		 * jQuery UI Autocomplete: Load Data via AJAX
-		 * http://salman-w.blogspot.com/2013/12/jquery-ui-autocomplete-examples.html
+		 * https://salman-w.blogspot.com/2013/12/jquery-ui-autocomplete-examples.html
 		 */
 		$(function() {
 			$("#autocomplete").autocomplete({
 				delay: 500,
 				minLength: 3,
 				source: function(request, response) {
-					$.getJSON("http://api.rottentomatoes.com/api/public/v1.0/movies.json?callback=?", {
-						// do not copy the api key; get your own at developer.rottentomatoes.com
-						apikey: "6czx2pst57j3g47cvq9erte5",
-						q: request.term,
-						page_limit: 10
+					$.getJSON("https://www.omdbapi.com/", {
+						// do not copy the api key; get your own
+						apikey: "d6ae2fa3",
+						s: request.term,
+						type: "movie",
+						r: "json"
 					}, function(data) {
 						// data is an array of objects and must be transformed for autocomplete to use
-						var array = data.error ? [] : $.map(data.movies, function(m) {
+						var array = data.Response === "False" ? [] : $.map(data.Search, function(m) {
 							return {
-								label: m.title + " (" + m.year + ")",
-								url: m.links.alternate
+								label: m.Title + " (" + m.Year + ")",
+								url: "https://www.imdb.com/title/" + m.imdbID
 							};
 						});
 						response(array);
@@ -58,6 +59,6 @@
 			});
 		});
 	</script>
-	<p>This example uses <a href="http://developer.rottentomatoes.com/" target="_blank">Rotten Tomatoes API</a>.</p>
+	<p>This example uses <a href="https://www.omdbapi.com/" target="_blank">OMDb API</a>.</p>
 </body>
 </html>

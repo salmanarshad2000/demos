@@ -3,9 +3,9 @@
 <head>
 	<link href="../assets/styles.min.css" rel="stylesheet">
 	<title>jQuery UI Autocomplete: Custom HTML in Dropdown</title>
-	<link href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/themes/ui-darkness/jquery-ui.min.css" rel="stylesheet">
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-	<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js"></script>
+	<link href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/start/jquery-ui.min.css" rel="stylesheet">
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
 	<style>
 		.loading {
 			display: none;
@@ -18,94 +18,61 @@
 		#autocomplete.ui-autocomplete-loading ~ .loading {
 			display: inline-block;
 		}
+		.ui-autocomplete .m-icon {
+			float: left;
+			max-width: 32px;
+		}
+		.ui-autocomplete .x-icon {
+			float: left;
+			width: 32px;
+			opacity: .5;
+			font-size: small;
+			text-align: center;
+		}
 		.ui-autocomplete .m-name {
-			margin-right: 1em;
-			font-size: larger;
+			display: block;
+			margin-left: 40px;
 		}
 		.ui-autocomplete .m-year {
-			float: right;
-			font-size: larger;
-		}
-		.ui-autocomplete .m-cast {
 			display: block;
+			margin-left: 40px;
 			font-size: smaller;
 		}
-		/* Rotten Tomatoes Branding */
-		.ui-autocomplete .rt-main {
-			display: block;
-			margin-left: 1em;
-			font-size: smaller;
-		}
-		.ui-autocomplete .rt-ico {
-			display: inline-block;
-			margin-right: .5em;
-			width: 16px;
-			height: 16px;
-			background-image: url(rt-icons.png);
-			vertical-align: bottom;
-		}
-		.ui-autocomplete .rt-ico.fresh {
-			background-position: 0 0;
-		}
-		.ui-autocomplete .rt-ico.rotten {
-			background-position: -16px 0;
-		}
-		.ui-autocomplete .rt-ico.certified_fresh {
-			background-position: -32px 0;
-		}
-		.ui-autocomplete .rt-val {
-			display: inline-block;
-			margin-right: .5em;
-		}
-		.ui-autocomplete .rt-bar {
-			display: inline-block;
-			margin-right: .5em;
-			width: 10em;
-			height: 1em;
-			background-color: #ECE4B5;
-		}
-		.ui-autocomplete .rt-bar span {
-			display: block;
-			height: 1em;
-		}
-		.ui-autocomplete .rt-bar.fresh span, .ui-autocomplete .rt-bar.certified_fresh span {
-			background-color: #C91B22;
-		}
-		.ui-autocomplete .rt-bar.rotten span {
-			background-color: #94B13C;
+		.ui-autocomplete div::after {
+			content: "";
+			display: table;
+			clear: both;
 		}
 	</style>
 </head>
 <body>
-	<form action="http://www.rottentomatoes.com/search/" target="_blank">
-		<input id="autocomplete" type="text" placeholder="Movie name" name="search">
-		<span class="loading"></span>
+	<form action="https://www.imdb.com/find" target="_blank">
+		<input id="autocomplete" type="text" placeholder="Movie name" name="q"> <span class="loading"></span>
 	</form>
 	<script>
 		/*
 		 * jQuery UI Autocomplete: Custom HTML in Dropdown
-		 * http://salman-w.blogspot.com/2013/12/jquery-ui-autocomplete-examples.html
+		 * https://salman-w.blogspot.com/2013/12/jquery-ui-autocomplete-examples.html
 		 */
 		$(function() {
 			$("#autocomplete").autocomplete({
 				delay: 500,
 				minLength: 3,
 				source: function(request, response) {
-					$.getJSON("http://api.rottentomatoes.com/api/public/v1.0/movies.json?callback=?", {
-						// do not copy the api key; get your own at developer.rottentomatoes.com
-						apikey: "6czx2pst57j3g47cvq9erte5",
-						q: request.term,
-						page_limit: 10
+					$.getJSON("https://www.omdbapi.com/", {
+						// do not copy the api key; get your own
+						apikey: "d6ae2fa3",
+						s: request.term,
+						type: "movie",
+						r: "json"
 					}, function(data) {
 						// data is an array of objects and must be transformed for autocomplete to use
-						var array = data.error ? [] : $.map(data.movies, function(m) {
+						var array = data.Response === "False" ? [] : $.map(data.Search, function(m) {
 							return {
-								label: m.title,
-								year: m.year,
-								cast: m.abridged_cast.slice(0, 3).map(function(a) { return a.name; }).join(", "),
-								rating: m.ratings.critics_score === -1 ? null : m.ratings.critics_score,
-								icon: m.ratings.critics_score === -1 ? null : m.ratings.critics_rating.toLowerCase().replace(/\s/g, "_"),
-								url: m.links.alternate
+								label: m.Title,
+								year: m.Year,
+								icon: m.Poster === "N/A" ? null : m.Poster.replace(/_SX\d+\.jpg/, "_SX32.jpg"),
+								url: "https://www.imdb.com/title/" + m.imdbID
 							};
 						});
 						response(array);
@@ -122,20 +89,18 @@
 					window.open(ui.item.url);
 				}
 			}).data("ui-autocomplete")._renderItem = function(ul, item) {
-				var $a = $("<a></a>");
-				$("<span class='m-year'></span>").text(item.year).appendTo($a);
-				$("<span class='m-name'></span>").text(item.label).appendTo($a);
-				$("<span class='m-cast'></span>").text(item.cast).appendTo($a);
-				if (item.rating && item.icon) {
-					var $tm = $("<span class='rt-main'>Rotten Tomatoes<sup>&reg;</sup> Score<br>Tomatometer<sup>&reg;</sup><br></span>").appendTo($a);
-					$("<span class='rt-ico'></span>").addClass(item.icon).appendTo($tm);
-					$("<span class='rt-val'></span>").text(item.rating + "%").appendTo($tm);
-					$("<span class='rt-bar'></span>").addClass(item.icon).appendTo($tm).append("<span style='width: " + item.rating + "%;'></span>");
+				var $div = $("<div></div>");
+				if (item.icon) {
+					$("<img class='m-icon'>").attr("src", item.icon).appendTo($div);
+				} else {
+					$("<span class='x-icon'>no img</span>").appendTo($div);
 				}
-				return $("<li></li>").append($a).appendTo(ul);
+				$("<span class='m-name'></span>").text(item.label).appendTo($div);
+				$("<span class='m-year'></span>").text(item.year).appendTo($div);
+				return $("<li></li>").append($div).appendTo(ul);
 			};
 		});
 	</script>
-	<p>This example uses <a href="http://developer.rottentomatoes.com/" target="_blank">Rotten Tomatoes API</a>.</p>
+	<p>This example uses <a href="https://www.omdbapi.com/" target="_blank">OMDb API</a>.</p>
 </body>
 </html>

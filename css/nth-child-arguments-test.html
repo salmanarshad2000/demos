@@ -3,7 +3,7 @@
 <head>
 	<link href="../assets/styles.min.css" rel="stylesheet">
 	<title>CSS: nth-child Arguments Test</title>
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 	<style>
 		#expr { position: relative; top: 1px; margin: 0 2px; border: 1px solid #CCCCCC; padding: 0 2px; width: 60px; font-family: inherit; font-size: inherit; }
 		#expr.error { background-color: #FFF0F0; }
@@ -105,21 +105,21 @@
 	<script>
 		/*
 		 * CSS: nth-child Arguments Test
-		 * http://salman-w.blogspot.com/2014/03/css-nth-child-selector-pwned.html
+		 * https://salman-w.blogspot.com/2014/03/css-nth-child-selector-pwned.html
 		 */
 		$(function() {
 			function ordinalSuffixOf(i) {
 				/*
-				 * http://stackoverflow.com/a/13627586/87015
+				 * https://stackoverflow.com/a/13627586/87015
 				 */
-				var j = i % 10;
-				if (j === 1 && i !== 11) {
+				var j = i % 10, k = i % 100;
+				if (j == 1 && k != 11) {
 					return i + "st";
 				}
-				if (j === 2 && i !== 12) {
+				if (j == 2 && k != 12) {
 					return i + "nd";
 				}
-				if (j === 3 && i !== 13) {
+				if (j == 3 && k != 13) {
 					return i + "rd";
 				}
 				return i + "th";

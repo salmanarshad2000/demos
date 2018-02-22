@@ -3,7 +3,7 @@
 <head>
 	<link href="../assets/styles.min.css" rel="stylesheet">
 	<title>YouTube: Retrieve Title, Description and Thumbnail</title>
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 	<style>
 		#search-bar { margin: 1em 0; overflow: hidden; }
 		#search-txt { float: left; width: 60%; }
@@ -15,7 +15,7 @@
 <body>
 	<p>Enter YouTube Video ID or URL in the text box below</p>
 	<div id="search-bar">
-		<input id="search-txt" type="text" value="http://www.youtube.com/watch?v=gzDS-Kfd5XQ" maxlength="100">
+		<input id="search-txt" type="text" value="https://www.youtube.com/watch?v=gzDS-Kfd5XQ" maxlength="100">
 		<input id="search-btn" type="button" value="Fetch Video Information">
 	</div>
 	<div id="video-data-1"></div>
@@ -23,7 +23,7 @@
 	<script>
 		/*
 		 * YouTube: Retrieve Title, Description and Thumbnail
-		 * http://salman-w.blogspot.com/2010/01/retrieve-youtube-video-title.html
+		 * https://salman-w.blogspot.com/2010/01/retrieve-youtube-video-title.html
 		 */
 		$(function() {
 			$("#search-txt").on("keypress", function(e) {
@@ -35,7 +35,7 @@
 			$("#search-btn").on("click", function() {
 				$("#video-data-1, #video-data-2").empty();
 				var videoid = $("#search-txt").val();
-				var matches = videoid.match(/^http:\/\/www\.youtube\.com\/.*[?&]v=([^&]+)/i) || videoid.match(/^http:\/\/youtu\.be\/([^?]+)/i);
+				var matches = videoid.match(/^https?:\/\/www\.youtube\.com\/.*[?&]v=([^&]+)/i) || videoid.match(/^https?:\/\/youtu\.be\/([^?]+)/i);
 				if (matches) {
 					videoid = matches[1];
 				}
