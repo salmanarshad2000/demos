@@ -19,32 +19,30 @@
 </head>
 <body>
 	<div id="datepicker"></div>
-	<p><input id="dateloader" type="button" value=" Load dates "></p>
+	<p><input id="dateloader" type="button" value="Load holidays from Google calendar"></p>
 	<script>
 		/*
 		 * jQuery UI Datepicker: Update Datepicker Using AJAX
 		 * https://salman-w.blogspot.com/2013/01/jquery-ui-datepicker-examples.html
 		 */
 		$(function() {
-			var dateList = null;
-			var date1 = new Date;
-			date1.setHours(0, 0, 0, 0);
-			date1.setDate(1);
-			var date2 = new Date;
-			date2.setHours(0, 0, 0, 0);
-			date2.setMonth(date2.getMonth() + 12, 0);
-			var date3 = new Date;
-			date3.setHours(0, 0, 0, 0);
-			date3.setMonth(date3.getMonth() + 12, 1);
+			var dateList;
+			var refDate = new Date;
+			// searching events from 1st of current month for next 12 months
+			// note that the datepicker min and max dates are inclusive but
+			// calendar api min date is inclusive and max date is exclusive
+			var minDate = new Date(refDate.getFullYear(), refDate.getMonth(), 1);
+			var maxDate_DP = new Date(refDate.getFullYear(), refDate.getMonth() + 12, 0);
+			var maxDate_API = new Date(refDate.getFullYear(), refDate.getMonth() + 12, 1);
 			$("#datepicker").datepicker({
-				minDate: date1,
-				maxDate: date2,
+				minDate: minDate,
+				maxDate: maxDate_DP,
 				beforeShowDay: function(date) {
 					var r = [true, ""];
-					if (dateList === null) {
+					if (dateList === undefined) {
 						r[1] = "dp-highlight-unknown";
 					} else {
-						var key = $.datepicker.formatDate("d M yy", date);
+						var key = $.datepicker.formatDate("yy-mm-dd", date);
 						if (key in dateList) {
 							r[1] = "dp-highlight-holiday";
 							r[2] = dateList[key].join(", ");
@@ -55,20 +53,19 @@
 			});
 			$("#dateloader").on("click", function() {
 				$(this).prop("disabled", true);
-				$.getJSON("//www.google.com/calendar/feeds/usa__en@holiday.calendar.google.com/public/basic", {
-					"alt": "json",
-					"start-min": $.datepicker.formatDate("yy-mm-dd", date1),
-					"start-max": $.datepicker.formatDate("yy-mm-dd", date3),
-					"orderby": "starttime",
-					"max-results": 100
+				$.getJSON("https://www.googleapis.com/calendar/v3/calendars/" + encodeURIComponent("en.usa#holiday@group.v.calendar.google.com") + "/events", {
+					key: "AIzaSyBs1MVxS8kIxL9BXrxYE0lfvDP-iF_cmeA",
+					fields: "items(summary,start,end)",
+					timeMin: minDate.toISOString(),
+					timeMax: maxDate_API.toISOString()
 				}, function(data) {
 					dateList = {};
-					$.each(data.feed.entry, function(i, entry) {
-						var key = entry.summary.$t.match(/When: ... ([a-zA-Z0-9, ]+)/)[1];
+					data.items.forEach(function(item) {
+						var key = item.start.date;
 						if (key in dateList === false) {
 							dateList[key] = [];
 						}
-						dateList[key].push(entry.title.$t);
+						dateList[key].push(item.summary);
 					});
 					$("#datepicker").datepicker("refresh");
 				});
