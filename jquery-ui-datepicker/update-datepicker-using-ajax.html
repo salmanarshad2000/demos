@@ -54,7 +54,7 @@
 			$("#dateloader").on("click", function() {
 				$(this).prop("disabled", true);
 				$.getJSON("https://www.googleapis.com/calendar/v3/calendars/" + encodeURIComponent("en.usa#holiday@group.v.calendar.google.com") + "/events", {
-					key: "AIzaSyBs1MVxS8kIxL9BXrxYE0lfvDP-iF_cmeA",
+					key: "AIzaSyA7mayyJzzigBiPeHJ4pe8fm_gLz-mT4qU",
 					fields: "items(summary,start,end)",
 					timeMin: minDate.toISOString(),
 					timeMax: maxDate_API.toISOString()
